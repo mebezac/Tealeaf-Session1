@@ -13,7 +13,7 @@
 @who_won = ""
 
 #Create Deck
-def create_decks num
+def create_decks (num)
   suits = ["Clubs", "Spades", "Diamonds", "Hearts"]
   cards = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
   num.times do 
@@ -37,11 +37,11 @@ def scoreboard
   puts "#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#"
 end
 
-def card_value card
+def card_value (card)
   @card_values_hash[card.split[0]]
 end
 
-def hand_value hand
+def hand_value (hand)
   value = 0
   hand.each do |card| 
     value += card_value card
@@ -84,14 +84,14 @@ def new_game
 end
 
 def start_game
-  create_decks 5
+  create_decks (5)
   shuffle
   @player_hand = []
   @dealer_hand = []
 
   deal
-  @player_score = hand_value @player_hand
-  @dealer_score = hand_value @dealer_hand
+  @player_score = hand_value (@player_hand)
+  @dealer_score = hand_value (@dealer_hand)
   say "#{@name}'s hand: #{@player_hand.join(', ')}, which has a value of: #{@player_score}"
   say "Dealer is showing #{@dealer_hand[0]}"
   hit_or_stay
@@ -106,7 +106,7 @@ def deal
 
 end
 
-def hit hand
+def hit (hand)
   hand.push @deck.pop  
 end
 
@@ -135,8 +135,8 @@ def hit_or_stay
     answer = gets.chomp.downcase
 
     if answer == 'hit' && @player_score <= 21
-      hit @player_hand
-      @player_score = hand_value @player_hand
+      hit (@player_hand)
+      @player_score = hand_value (@player_hand)
       say "#{@name}'s hand: #{@player_hand.join(', ')}"
       say "#{@name}'s' hand is now worth #{@player_score}"
       hit_or_stay
@@ -181,7 +181,7 @@ def finalize
   elsif @dealer_score < 17
     say "The dealer will hit because his hand is worth #{@dealer_score}, press enter to continue"
     gets
-    hit @dealer_hand
+    hit (@dealer_hand)
     @dealer_score = hand_value @dealer_hand
     say "Dealer's hand: #{@dealer_hand.join(', ')}, value: #{@dealer_score}"
     finalize
