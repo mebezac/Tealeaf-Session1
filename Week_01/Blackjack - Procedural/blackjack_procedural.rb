@@ -107,6 +107,7 @@ def deal
 end
 
 def hit (hand)
+  shuffle
   hand.push @deck.pop  
 end
 
